@@ -532,7 +532,7 @@ model {
   for (t in 1:(Tmr-1)){
     theta_out[t] = get_theta(K, s0[t], sN[t], sB[t], f3[t], f4[t], nb[t], bb[t], to);
   }
-  // theta_ with parameter 'ti_new'
+  // theta_newin with parameter 'ti_new'
   for (t in 1:(Tmr-1)){
     theta_newin[t] = get_theta(K, s0[t], sN[t], sB[t], f3[t], f4[t], nb[t], bb[t], ti_new);
   }

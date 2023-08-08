@@ -1,4 +1,5 @@
 // Population model with multivariate-normal prior on logit-scale vital rates
+// and Poisson-lognormal 'Random Effects' prior on immigration
 // First year 1986 (not 1983 as in the capture-recapture data and hmm models )
 
 functions {

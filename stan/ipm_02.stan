@@ -442,7 +442,7 @@ model {
   z_log_InNb ~ std_normal();
   z_log_NbNb ~ std_normal();
   
-  // count likelihood - a different count model might be better
+  // count likelihood
   y_count ~ normal(exp(log_Br) + exp(log_In), 10); 
   
   // define transition matrices
@@ -454,7 +454,7 @@ model {
   for (t in 1:(Tmr-1)){
     theta_out[t] = get_theta(K, s0[t], sN[t], sB[t], f3[t], f4[t], nb[t], bb[t], to);
   }
-  // theta_ with parameter 'ti_new'
+  // theta_newin with parameter 'ti_new'
   for (t in 1:(Tmr-1)){
     theta_newin[t] = get_theta(K, s0[t], sN[t], sB[t], f3[t], f4[t], nb[t], bb[t], ti_new);
   }
