@@ -74,6 +74,11 @@ plot_vital_rate(vr, fit)
 det <- "qN"  # choose one of "qN", "qB", "pBu", "pBe"
 plot_detection(det, fit)
 
+# Plot estimates of tag loss probabilities -------------------------------------
+fit$draws(variables = c("ti", "to", "ti_new")) %>%
+  mcmc_hist() + 
+  labs( title= "Posterior estimates for tag loss probabilities" )
+
 # Plot population stage size ---------------------------------------------------
 
 st <- "Br"  # choose one of "Pb1", "Pb2", "Pb3", "Pb4", "Br", "Nb", "In"
