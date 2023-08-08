@@ -64,12 +64,11 @@ for ( p in c("Pb1", "Pb2", "Pb3", "Pb4", "Br", "Nb") ) {
     filter( omega ==  omega_val) %>%
     filter(par_name == p)
   prior_init_pars[[ str_c(p,"_1_pars") ]] <- 
-    # c(p_prior_inits$mean, p_prior_inits$sd)
     c(p_prior_inits$mean, p_prior_inits$sd)
 }
 
 # Fit population model with cmdstanr -------------------------------------------
-# read in count data from 15 October counts, unadjusted
+# read in 15 October count data
 count_data <- readRDS("data/count_data_15oct.RDS")
 count_data <- count_data$count
 
@@ -89,7 +88,7 @@ input_data <- c( list( T = length(count_data),
                  inds_list,
                  prior_init_pars )
 
-# if using pop_02 with gaussian process prior on immigration, uncomment following lines
+# if using pop_02 with gaussian process prior on immigration, uncomment following line
 # to add a required time covariate to the input data
 # input_data <- c( input_data, list(x = 1:length(count_data)))
 
