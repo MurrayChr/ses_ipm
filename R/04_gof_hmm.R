@@ -14,6 +14,8 @@ file_number_helper <- function(n, num_digits = 3){
 }
 
 # Simulate replicate datasets --------------------------------------------------
+# Uncomment this section if you want to re-simulate replicate datasets
+# The replicate datasets are in /ppc_rep_data
 
 ## select hmm model
 # file <- "hmm_01_fixed_effects_fit_chpc.RDS"
@@ -37,10 +39,10 @@ file_number_helper <- function(n, num_digits = 3){
 # Compute expected and observed number of detections for simulated data --------
 
 ## select hmm model
-# model_file <- "hmm_01_fixed_effects_fit_chpc.RDS"
-# model_file <- "hmm_02_random_effects_fit_chpc.RDS"
-# model_file <- "hmm_03_gaussian_process_fit_chpc.RDS"
-model_file <- "hmm_04_cheap_gp_fit_chpc.RDS"
+# model_file <- "hmm_01_fixed_effects_fit.RDS"
+# model_file <- "hmm_02_random_effects_fit.RDS"
+# model_file <- "hmm_03_gaussian_process_fit.RDS"
+model_file <- "hmm_04_cheap_gp_fit.RDS"
 
 model_prefix <- str_sub( model_file, 1,6 )
 
@@ -165,11 +167,11 @@ ft_stats %>%
   geom_point(alpha = 0.5) + 
   geom_abline(slope = 1, intercept = 0, size = 0.3, alpha = 0.5) +
   coord_fixed(ratio = 1, xlim = c(0,NA), ylim = c(0,NA)) +
-  labs(x="T(y,theta[i])", y = "T(y_rep[i],theta[i])") +
-  annotate("text", x = 16, y = 22, size = 4,
+  labs(x="real data discrepancy", y = "replicate data discrepancy") +
+  annotate("text", x = 12, y = 15, size = 4,
            label = str_c("p[B] == ",pB), parse = TRUE) +
-  labs( title = str_c("FT observed vs. expected detections of ", 
-                      type, " seals."),
+  labs( title = str_c("FT discrepancy for ", 
+                      type, " detections."),
         subtitle = str_c( model_file ) ) +
   theme_classic() 
 
