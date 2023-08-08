@@ -16,7 +16,7 @@ file_number_helper <- function(n, num_digits = 3){
 # Simulate replicate datasets --------------------------------------------------
 
 ## select ipm model
-# file <- "ipm_01_fit_chpc.RDS"
+# file <- "ipm_01_fit.RDS"
 
 ## prefix for naming files
 # prefix <- str_sub(file, 1, 6)
