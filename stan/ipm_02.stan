@@ -1,3 +1,5 @@
+// IPM_RE_RE with 'Random Effects' priors on vital rates and immigration
+
 // Hidden states are labeled with 'Pb' for prebreeder, 'Br' for breeder and 
 // 'Nb' for non-breeder
 

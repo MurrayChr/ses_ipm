@@ -1,3 +1,6 @@
+// IPM_GP_RE with 'Gaussian Process' priors on vital rates and 
+// 'Random Effects' priors on immigration
+
 // Hidden states are labeled with 'Pb' for prebreeder, 'Br' for breeder and 
 // 'Nb' for non-breeder
 
