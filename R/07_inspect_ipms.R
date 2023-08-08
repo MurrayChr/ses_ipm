@@ -84,43 +84,29 @@ fit$draws(variables = c("ti", "to", "ti_new")) %>%
 st <- "Br"  # choose one of "Pb1", "Pb2", "Pb3", "Pb4", "Br", "Nb", "In"
 plot_stage_size(st, fit) 
 
-# Immigration hyperparameter posteriors vs priors for ipm_GP_RE ----------------
-#  priors are (see ipm_01.stan, lines 488, 489)
-#  mean_log_lambda ~ normal(log(50), 0.3)
-#  sd_log_lambda prior ~ halfnormal(0, 0.4)
+# Prior vs posterior plots for immigration hyperparameters ---------------------
+# in IPM_GP_RE
+# priors are (see ipm_01.stan, lines 488, 489)
+# mean_log_lambda ~ normal(log(50), 0.3)
+# sd_log_lambda prior ~ halfnormal(0, 0.4)
+post_draws <- fit$draws(variables = c("mean_log_lambda", "sd_log_lambda"),
+                           format = "df") %>%
+  select(-starts_with(".")) %>%
+  add_column(draws = "posterior")
 
-prior_vs_posterior <- function(post_draws, prior_draws) {
-  pr_tib <- as_tibble_col(prior_draws, column_name = "prior") %>%
-    pivot_longer(everything())
-  po_tib <- as_tibble_col(post_draws, column_name = "posterior") %>%
-    pivot_longer(everything())
-  rbind( po_tib, pr_tib )  %>%
-    ggplot( aes( x = value, fill = name) ) +
-    geom_density( alpha = 0.5, colour = NA) 
-}
+prior_draws <- tibble(
+  mean_log_lambda = rnorm(4000, log(50), 0.3),
+  sd_log_lambda = abs( rnorm(4000, 0, 0.4) ),
+  draws = "prior"
+)
 
-# mean_log_lambda
-post_draws <- fit$draws(variables = "mean_log_lambda", format = "df") %>%
-  select( -starts_with(".") ) %>%
-  pull()
-
-prior_draws <- rnorm(length(post_draws), log(50), 0.3)
-
-prior_vs_posterior(post_draws, prior_draws) +
-  labs( title = "mean_log_lambda",
-        subtitle = "ipm_01")
-
-# sd_log_lambda
-post_draws <- fit$draws(variables = "sd_log_lambda", format = "df") %>%
-  select( -starts_with(".") ) %>%
-  pull()
-
-# draw from half-normal by drawing from normal and discarding negative samples
-prior_draws <- rnorm( 10*length(post_draws), 0, 0.4)
-prior_draws <- prior_draws[prior_draws > 0][1:length(post_draws)]
-
-prior_vs_posterior(post_draws, prior_draws) +
-  labs( title = "sd_log_lambda",
-        subtitle = "ipm_01")
-
-
+rbind(prior_draws, post_draws) %>%
+  pivot_longer(cols = c("mean_log_lambda", "sd_log_lambda")) %>%
+  # filter(name == "mean_log_lambda") %>%
+  ggplot( aes(x = value, fill = factor(draws, levels = c("prior", "posterior"))) ) +
+  geom_density( colour = NA, alpha = 0.6 ) +
+  facet_wrap( facets = vars(name), scales = "free" ) +
+  scale_fill_manual(values = c("grey60", "navyblue")) +
+  theme_classic() +
+  theme(legend.title = element_blank(),
+        axis.title.x = element_blank())
