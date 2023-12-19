@@ -5,10 +5,10 @@ library(tidyverse)
 library(cmdstanr)
 
 # read in selected hmm model fit -----------------------------------------------
-hmm_fit <- readRDS("outputs/hmm_01_fixed_effects_fit.RDS")
+# hmm_fit <- readRDS("outputs/hmm_01_fixed_effects_fit.RDS")
 # hmm_fit <- readRDS("outputs/hmm_02_random_effects_fit.RDS")
 # hmm_fit <- readRDS("outputs/hmm_03_gaussian_process_fit.RDS")
-# hmm_fit <- readRDS("outputs/hmm_04_cheap_gp_fit.RDS")
+hmm_fit <- readRDS("outputs/hmm_04_cheap_gp_fit.RDS")
 
 # match multivariate normal to logit-transformed posterior draws ---------------
 # extract posterior draws of vital rates
@@ -73,8 +73,8 @@ count_data <- readRDS("data/count_data_15oct.RDS")
 count_data <- count_data$count
 
 # select pop model
-file <- "stan/pop_01_logit_mvn.stan"   # 'random effects' prior on immigration
-# file <- "stan/pop_02_gp_in.stan"   # gaussian process prior on immigration
+# file <- "stan/pop_01_logit_mvn.stan"   # 'random effects' prior on immigration
+file <- "stan/pop_02_gp_in.stan"   # gaussian process prior on immigration
 
 # compile 
 mod <- cmdstan_model(file)
@@ -90,7 +90,7 @@ input_data <- c( list( T = length(count_data),
 
 # if using pop_02 with gaussian process prior on immigration, uncomment following line
 # to add a required time covariate to the input data
-# input_data <- c( input_data, list(x = 1:length(count_data)))
+input_data <- c( input_data, list(x = 1:length(count_data)))
 
 # fit
 fit <- mod$sample(data = input_data, 
@@ -99,7 +99,7 @@ fit <- mod$sample(data = input_data,
                   adapt_delta = 0.9)
 
 # Save model output ------------------------------------------------------------
-# fit$save_object("outputs/pop_01_prior_hmm_02.RDS")
-# fit$save_object("outputs/pop_01_prior_hmm_03.RDS")
-# fit$save_object("outputs/pop_01_prior_hmm_04.RDS")
-# fit$save_object("outputs/pop_02_prior_hmm_04.RDS")
+# fit$save_object("outputs/pop_01_hmm_02.RDS")
+# fit$save_object("outputs/pop_01_hmm_03.RDS")
+# fit$save_object("outputs/pop_01_hmm_04.RDS")
+# fit$save_object("outputs/pop_02_hmm_04.RDS")
