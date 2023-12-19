@@ -257,14 +257,13 @@ model {
   //// standard normal priors on all 'raw' variables
   // for non-centered parametrisation
   // immigration
-  z_log_In ~ std_normal();       // !!! this is here !!!!
+  z_log_In ~ std_normal();
 
   // log sizes for Pb1, ..., Pb4 and In
   z_log_Pb1 ~ std_normal();
   z_log_Pb2 ~ std_normal();
   z_log_Pb3 ~ std_normal();
   z_log_Pb4 ~ std_normal();
-  z_log_In ~ std_normal();       // !!! and here !!! that's a mistake...   
   
   // log size summands for Br, Nb
   z_log_Pb2Br ~ std_normal();
