@@ -2,8 +2,8 @@
 // and Poisson-lognormal 'Random Effects' prior on immigration.
 // First year 1986 (not 1983 as in the capture-recapture data and hmm models )
 
-// Here the count error variance sigma_c is estimated with an informative 
-// normal(10,2.5) prior (cf. fixed to ten in pop_01_logit_mvn.stan)
+// Here the count error variance sigma_c is estimated with a vague 
+// normal(0,20) prior (cf. fixed to ten in pop_01_logit_mvn.stan)
 
 functions {
   // moment-match lognormal to binomial
