@@ -136,4 +136,22 @@ summary_contributions %>%
        subtitle = ipm) +
   theme_classic()
 
+# plot relative difference between variance in realised growth rate
+# and sum of tltre contributions
 
+# calculate temporal variance in realised growth rate
+temp_var_lambda <- apply( posterior_list$lambda , 1, stats::var )
+
+# calculate sum of contributions
+sum_contr <- rowSums( contributions )
+
+# calculate percentage relative difference
+rel_diff <- 100 * (temp_var_lambda - sum_contr) / temp_var_lambda
+
+tibble( rel_diff  = rel_diff ) %>%
+  ggplot( aes(x = rel_diff) ) +
+  geom_density( fill = "navyblue", alpha = 0.6, colour = NA ) +
+  theme_classic() +
+  geom_vline( xintercept = 0, linetype = "dashed", alpha = 0.5) +
+  labs( x = "Relative difference (%)" )
+# ggsave("figs/si_tltre_linear_approx.pdf", height = 4, width = 6)
