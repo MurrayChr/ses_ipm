@@ -1271,3 +1271,34 @@ plot_grid(tltre_plot, in_plot,
           hjust = -0.1, vjust = 2)
 # ggsave("figs/si_fig_in_sensitivity_to_sigma_c.pdf", height = 5, width = 12)
 
+
+
+
+
+
+
+
+
+# Posterior tag loss probabilities --------------------------------------------
+hmm_04 <- readRDS("outputs/hmm_04_cheap_gp_fit.RDS")
+
+# prepare factor for plotting with facet_wrap
+name_levels <- c("ti", "to", "ti_new")
+name_labels <- c( expression(tau[inner]),
+                  expression(tau[outer]),
+                  expression(tau[new~inner]) )
+hmm_04$draws(variables = c("ti", "to", "ti_new"), format = "df") %>%
+  select(-starts_with(".")) %>%
+  pivot_longer( everything() ) %>%
+  mutate( name = factor(name, levels=name_levels, labels=name_labels ) ) %>%
+  ggplot( aes(x = value) ) +
+  geom_density( colour = NA, alpha = 0.7, fill = "navyblue" ) +
+  facet_wrap( vars(name), labeller = label_parsed ) +
+  theme_classic() +
+  theme(legend.title = element_blank(),
+        panel.grid.major = element_line(),
+        legend.text = element_text(size = 12),
+        legend.position = c(0.9,0.5),
+        axis.title.x = element_blank(),
+        strip.text = element_text(size = 12))
+# ggsave("figs/si_tag_loss_posterior.pdf", height = 2, width = 5.5)
