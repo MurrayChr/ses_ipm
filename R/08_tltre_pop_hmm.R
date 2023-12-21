@@ -3,14 +3,17 @@
 library(cmdstanr)
 library(posterior)
 library(tidyverse)
-source("R/10_get_tltre_contribution_function.R")
+source("R/08_get_tltre_contribution_function.R")
 
 # Specify the file of an ipm fit with the two-stage procedure ------------------
 # these are always of the form "pop_xx_hmm_xx_fit.RDS"
 
-file <- "pop_01_hmm_04_fit.RDS"   # IPM_GP_RE
+# file <- "pop_01_hmm_04_fit.RDS"   # IPM_GP_RE
 # file <- "pop_01_hmm_02_fit.RDS"   # IPM_RE_RE
 # file <- "pop_02_hmm_04_fit.RDS"   # IPM_GP_GP
+# file <- "pop_03a_hmm_04_fit.RDS"   # IPM_GP_RE, sigma_c ~ informative prior
+file <- "pop_03b_hmm_04_fit.RDS"   # IPM_GP_RE, sigma_c ~ vague prior
+
 
 # extract posterior samples from model -----------------------------------------
 
