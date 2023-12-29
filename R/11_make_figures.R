@@ -19,11 +19,13 @@ ipm_summary <- ipm_fit$summary(variables = c("Br_tot", "Tot")) %>%
 
 # total population size, total breeders and count
 count_data <- as_tibble(readRDS("data/count_data_15oct.RDS"))
-colour_labels <- c(expression("Tot"), expression(Br["tot"]))
-colour_values <- c("Tot" = oranges[7], "Br_tot" = pairs[7])
+colour_labels <- c(expression(Br["tot"]), expression("Tot"))
+colour_labels <- c("Tot" = expression("Tot"), "Br_tot" = expression(Br["tot"]))
+colour_values <- c("Br_tot" = pairs[7], "Tot" = oranges[7])
 
 pop_plot <- ipm_summary %>%
   filter( year >= 1990 ) %>%
+  mutate( var_name = as_factor(var_name) ) %>%
   ggplot( aes(x = year) ) +
   geom_pointrange( aes(y = median, ymin = q5, ymax = q95,
                        colour = var_name)) +
@@ -44,7 +46,8 @@ pop_plot <- ipm_summary %>%
          axis.title = element_text(size = 13)
          ) +
   scale_color_manual(values = colour_values,
-                     labels = colour_labels) +
+                     labels = colour_labels,
+                     breaks = c("Tot", "Br_tot")) +
   labs( y = "number of seals" )
 pop_plot
 
