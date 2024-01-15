@@ -5,7 +5,7 @@ tLTRE analyses. Files sharing a numerical prefix all relate to a common task.
 
 - `01_fit_hmms.R`: fits several versions of the multi-event model
 - `02_fit_pop_hmm.R`: fits IPMs in two steps using the posterior from a multievent model in the prior for a population model
-- `03_fit_ipms.R`: fits several versions of the IPM
+- `03_fit_ipms.R`: fits several versions of the IPM (in a single step)
 - `04`: goodness-of-fit for multi-event and integrated population models using posterior predictive checks
   - `04a_sim_rep_cmr_data.R`: simulates replicate data from the posterior predictive distribution of a multi-event model
   - `04b_detection_functions.R`: functions to compute observed and expected number of detections of breeding seals and all seals
