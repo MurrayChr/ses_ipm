@@ -7,3 +7,8 @@ See the READMEs in the `R` and `stan` folders for further details.
 
 ### Installing cmdstanr
 We run Stan using cmdstanr; instructions on how to install cmdstanr can be found [here](https://mc-stan.org/cmdstanr/articles/cmdstanr.html).
+
+### DOI from Zenodo
+
+[![DOI](https://zenodo.org/badge/676141716.svg)](https://zenodo.org/doi/10.5281/zenodo.10512979)
+
